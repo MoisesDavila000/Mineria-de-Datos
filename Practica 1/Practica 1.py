@@ -1,0 +1,9 @@
+import requests
+
+url = "https://storage.googleapis.com/kaggle-data-sets/600276/1078419/bundle/archive.zip?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=gcp-kaggle-com%40kaggle-161607.iam.gserviceaccount.com%2F20230905%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20230905T194721Z&X-Goog-Expires=259200&X-Goog-SignedHeaders=host&X-Goog-Signature=44b2b5745c1026f3016987d482ffb1cec694b80072760c4609878bcc32a00b85443d8b10c6780eb03bded76a23eab95df40fd00ea39e182a2bd0160ed7934ca6116794c84dc5b3a8439f54315e7533f3d594fdb5d030ded0acea0071ad697452905b1c71819eedd221cb5a101cc13c19175affcdaedeedc4b6a77e1506ca26a741098589c5f52fcca48d12d84637ac0d27eb4fc4c0a57e1793d8461cea0a1580c6f2897ca808e442e74fbc074b9dc8b5127ab4e1df48f30e2492a425d71f68683949c87295c1eaa143670e4dd0d9a4ca8e3e40dbff28e49b8c2682197b307136d85e7b2ab25123f340ff4212ea545e9ec3839aae64e528455e07cfb4054066dd"
+
+response = requests.get(url)
+
+with open("dataset.zip", "wb") as f:
+    f.write(response.content)
+    
