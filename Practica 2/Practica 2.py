@@ -27,14 +27,14 @@ for data in df.values:
     elif (data[28]):
         dragon.append("Red")
     else:
-        dragon.append("None")
+        dragon.append("No one")
     # Herald
     if (data[10] == 1):
         herald.append("Blue")
     elif (data[29]):
         herald.append("Red")
     else:
-        herald.append("None")
+        herald.append("No one")
 
 df.insert(0, "Winner", winner, True)
 df.insert(1, "FirstBlood", firstBlood, True)
