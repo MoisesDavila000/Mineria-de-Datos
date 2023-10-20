@@ -1,4 +1,6 @@
 import pandas as pd
+import statistics as stat
+import numpy as np
     
 def avarage(type, df):
     data = []
@@ -16,9 +18,7 @@ def min_val(type, df):
     if ('all' in type):
         min_list = []
         min_list.append(df[type.replace('all', 'blue')].min())
-        print(min_list)
         min_list.append(df[type.replace('all', 'red')].min())
-        print(min_list)
         return min(min_list)
     else:
         return df[type].min()
@@ -28,11 +28,31 @@ def max_val(type, df):
         max_list = []
         max_list.append(df[type.replace('all', 'blue')].max())
         max_list.append(df[type.replace('all', 'red')].max())
-        print(max_list)
         return max(max_list)
     else:
         return df[type].max()
+    
+def mode(type, df):
+    if('all' in type):
+        data = []
+        data.extend(df[type.replace('all', 'blue')].values)
+        data.extend(df[type.replace('all', 'red')].values)
+        moda= stat.mode(data)
+        return moda
+    else:
+        return stat.mode(df[type])
         
+def mean(type, df):
+    if('all' in type):
+        data = []
+        data.extend(df[type.replace('all', 'blue')].values)
+        data.extend(df[type.replace('all', 'red')].values)
+        media= np.mean(data)
+        return media
+    else:
+        return np.mean(df[type])
+        
+
 def statistics(type, df, winner=True):
     #Conteo
     if(type == 'Blue'):
@@ -52,6 +72,8 @@ def statistics(type, df, winner=True):
     min_data = []
     max_data = []
     tipo_data = []
+    moda_data = []
+    media_data = []
     
     for head in header:
         title = type.lower() + head
@@ -61,6 +83,10 @@ def statistics(type, df, winner=True):
         min_data.append(min_val(title, df))
         #Max
         max_data.append(max_val(title, df))
+        #Moda
+        moda_data.append(mode(title, df))
+        #Media
+        media_data.append(mean(title, df))
         #Tipo
         if(type == 'All'):
             tipo_data.append(title)
@@ -71,7 +97,7 @@ def statistics(type, df, winner=True):
                 tipo_data.append('lose'+title)
         
 
-    d = {'Tipo':tipo_data, 'Conteo':count_data, 'Promedio':avg_data, 'Min':min_data, 'Max':max_data}
+    d = {'Tipo':tipo_data, 'Conteo':count_data, 'Promedio':avg_data, 'Min':min_data, 'Max':max_data, 'Moda':moda_data, 'Media':media_data}
     stats_df = pd.DataFrame(data=d)
     return stats_df
     
