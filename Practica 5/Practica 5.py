@@ -1,7 +1,7 @@
 import pandas as pd
 import scipy.stats as stats
 
-#Get Winners/Losers Gold
+#Obtener el oro de los equipos cuando ganan y pierden
 def Gold(df):
     wbg, lrg, lbg, wrg = [], [], [], []
     for data in df.values:
@@ -13,6 +13,7 @@ def Gold(df):
             wrg.append(data[18])
     return wbg, wrg, lbg, lrg
 
+#Obtener los objetivos de los equipos
 def Objectives(df, i):
     bObjs = []
     rObjs = []
@@ -30,15 +31,18 @@ def Objectives(df, i):
 #Anova gold - scipy
 def Anova(value1, value2, value3=None, value4=None):
 
+    #Aplicar anova si se ingresan 4 valores
     if(value3 != None and value4 != None):
         F, p = stats.f_oneway(value1, value2, value3, value4)
+        print("Valor F: ", F, ". Valor p: ", p)
         if(p<0.05):
-            return True, F, p
+            return True
         else:
-            return False, F, p
+            return False
                     
-    #Aplicar anova a los valores de ambos equipos cuando ganan
+    #Aplicar anova a los valores 
     F, p = stats.f_oneway(value1, value2)
+    print("Valor F: ", F, ". Valor p: ", p)
     if(p<0.05):
         return True, F, p
     else:
@@ -46,38 +50,33 @@ def Anova(value1, value2, value3=None, value4=None):
     
 #Read CSV
 df = pd.read_csv("../Practica 2/cleaned_rankedGames.csv")
-F, p = 0, 0
+
 wbg, wrg, lbg, lrg = Gold(df)
 bDrag, rDrag = Objectives(df, 2)
 bHerald, rHerald = Objectives(df, 3)
 
 #Excecute anova 1
-winnerGold, F, p = Anova(wbg, wrg)
-print("Valor F: ", F, ". Valor p: ", p)
+winnerGold = Anova(wbg, wrg)
 Output = "Hay diferencia entre el oro de los equipos cuando ganan" if winnerGold else "No hay diferencia entre el oro de los equipos cuando ganan"
 print(Output, "\n")
 
 #Excecute anova 2
-loserGold, F, p = Anova(lbg, lrg)
-print("Valor F: ", F, ". Valor p: ", p)
+loserGold = Anova(lbg, lrg)
 Output = "Hay diferencia entre el oro de los equipos cuando pierden" if loserGold else "No hay diferencia entre el oro de los equipos cuando pierden"
 print(Output, "\n")
 
 #Excecute anova 3
-bothGold, F, p = Anova(wbg, wrg, lbg, lrg)
-print("Valor F: ", F, ". Valor p: ", p)
+bothGold = Anova(wbg, wrg, lbg, lrg)
 Output = "Hay diferencia entre el oro de los equipos sin importar si ganan o pierden" if bothGold else "No hay diferencias entre el oro dependiendo si se gana o pierde"
 print(Output, "\n")
 
 #Execute anova 4
-ObjResult, F, p = Anova(bDrag, rDrag)
-print("Valor F: ", F, ". Valor p: ", p)
+ObjResult = Anova(bDrag, rDrag)
 Output = "Hay diferencia entre los dragones que hace cada equipo" if ObjResult else "No hay diferencia entre los dragones que hace cada equipo"
 print(Output, "\n")
 
 #Execute anova 5
-ObjResult, F, p = Anova(bHerald, rHerald)
-print("Valor F: ", F, ". Valor p: ", p)
+ObjResult = Anova(bHerald, rHerald)
 Output = "Hay diferencia entre los heraldos que hace cada equipo" if ObjResult else "No hay diferencia entre los heraldos que hace cada equipo"
 print(Output, "\n")
 
