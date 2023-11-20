@@ -63,7 +63,7 @@ fB, kB, fR, kR = Dist(df, 6, 12, 15, 21)
 #Regresion para equipo azul farmJG - Kills
 scatter(fB, kB, colorB, "Distribuccion Asesinatos - Farm del Jg", "Scatter_KillsFarmJGBlue.png", "Kills", "Farm del Jg")
 #Regresion para equipo rojo farmJG - Kills
-scatter(fB, kB, colorR, "Distribuccion Asesinatos - Farm del Jg", "Scatter_KillsFarmJGRed.png", "Kills", "Farm del Jg")
+scatter(fR, kR, colorR, "Distribuccion Asesinatos - Farm del Jg", "Scatter_KillsFarmJGRed.png", "Kills", "Farm del Jg")
 
 wB, dB, wR, dR = Dist(df, 4, 15, 13, 6)
 #Regresion para equipo azul Wards - Muertes
